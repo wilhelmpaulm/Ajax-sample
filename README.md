@@ -1,0 +1,1 @@
+This is to remind myself on how to use Ajax :P

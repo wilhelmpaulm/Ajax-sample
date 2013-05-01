@@ -1,0 +1,68 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Love page</title>
+        <script src="jquery-1.8.3.js"></script>
+        <script src="underscore.js"></script>
+        <script src="jquery.timer.js"></script>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <div>TODO write content</div>
+        <div id="wall" style="background-color: gray; width: 300px; height: 300px; overflow-y: scroll"></div>
+
+        <form id="foo">
+            <input id="mess" type="text" name="message" value="" />
+            <input type="submit" value="go" />
+        </form>
+
+        <canvas id="can" style="width: 600px;height: 600px">
+
+        </canvas>
+
+
+        <script>
+            $(function() {
+                $("#foo").submit(function() {
+                    $.post("save.php", $("#foo").serialize(), function(data) {
+                    });
+                    //$("input").text("");
+                    $(this).find("#mess").val("");
+
+                    return false;
+                });
+                $("#wall").on("mousedown", function() {
+                    bank.pause();
+                });
+
+                $("#wall").on("mouseleave", function() {
+                    bank.play();
+                });
+
+                var bank = $.timer(function() {
+                    $.get("go.php", function(data) {
+                        $("#wall").scrollTop(9999);
+                        var sa = JSON.parse(data);
+                        var funk = "";
+                        _.each(sa, function(val) {
+                            funk += val["message"] + "<br>";
+                        });
+                        $("#wall").html(funk);
+                    });
+                    return false;
+                }, 50, true);
+            });
+
+
+
+
+
+
+        </script>
+    </body>
+</html>
